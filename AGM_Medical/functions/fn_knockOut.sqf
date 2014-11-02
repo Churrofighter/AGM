@@ -19,8 +19,6 @@ if (count _this > 1) then {
   _duration = _this select 1;
 };
 
-if !(isPlayer _unit or _unit getVariable ["AGM_AllowUnconscious", false]) exitWith {};
-
 _unit setVariable ["AGM_Unconscious", true, true];
 _unit setVariable ["AGM_CanTreat", false, true];
 

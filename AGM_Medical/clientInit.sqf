@@ -2,6 +2,10 @@
 
 private ["_currentBlood"];
 
+// @todo: pain effect
+// @todo: bleeding and bloodlevel effect
+// @todo: alternative pain effect
+
 if (!hasInterface) exitWith {};
 
 AGM_BloodLevel_CC = ppEffectCreate ["ColorCorrections", 4206];
@@ -50,9 +54,6 @@ AGM_UnconsciousRB ppEffectCommit 0.5;
       AGM_BloodLevel_CC ppEffectAdjust [1, 1, 0, [0.0, 0.0, 0.0, 0.0], [1, 1, 1,_currentBlood],  [0.2, 0.2, 0.2, 0]];
       AGM_BloodLevel_CC ppEffectCommit 0;
     };
-
-    // TODO: Bleeding effect?
-    // TODO: Pain effect ?
 
     // Unconciousness effect
     if (player getVariable ["AGM_Unconscious", false] || {player getVariable ["AGM_Overdosing", false]}) then {
