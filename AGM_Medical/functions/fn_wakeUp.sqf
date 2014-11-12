@@ -51,3 +51,5 @@ if !(scriptDone (_unit getVariable "AGM_UnconsciousnessTimer")) then {
 
 // @todo: make sure this works
 [_unit, _unit getVariable "AGM_OriginalAnim", 2] call AGM_Core_fnc_doAnimation;
+
+[_unit, "AGM_Medical_wokeUp", [_unit]] call AGM_Core_fnc_callCustomEventHandlers;
