@@ -96,3 +96,5 @@ _unconsciousnessTimer = [_unit] spawn {
   };
 };
 _unit setVariable ["AGM_UnconsciousnessTimer", _unconsciousnessTimer];
+
+[_unit, "AGM_Medical_knockedOut", [_unit]] call AGM_Core_fnc_callCustomEventHandlers;

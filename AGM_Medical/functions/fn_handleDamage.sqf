@@ -47,15 +47,11 @@ _unit setVariable ["AGM_isDiagnosed", False, True];
 // For some reason, everything is backwards in MP,
 // so we need to untangle some things.
 if (isMultiplayer) then {
-  // If you add something to this, remember not to replace something twice.
-  if (_selectionName == "hand_r") then {
-    _selectionName = "leg_l";
-  };
-  if (_selectionName == "leg_r") then {
-    _selectionName = "hand_l";
-  };
-  if (_selectionName == "legs") then {
-    _selectionName = "hand_r";
+  _selectionName = switch (_selectionName) do {
+    case "hand_r" : {"leg_l"};
+    case "leg_r"  : {"hand_l"};
+    case "legs"   : {"hand_r"};
+    default         {_selectionName};
   };
 };
 
@@ -78,6 +74,7 @@ if (_selectionName in _hitSelections) then {
 };
 
 // Finished with the current frame, reset variables
+// @todo move these variables into object namespace
 if (isNil "AGM_Medical_FrameNo" or {diag_framno > AGM_Medical_FrameNo}) then {
   AGM_Medical_FrameNo = diag_frameno;
   AGM_Medical_isFalling = False;

@@ -30,10 +30,10 @@ _this spawn {
   _player selectWeapon (primaryWeapon player);
 
   if (_type == "drag") then {
-    _player playMoveNow "AcinPknlMstpSrasWrflDnon";
+    [_player, "AcinPknlMstpSrasWrflDnon", 1] call AGM_Core_fnc_doAnimation;
     sleep 1.8;
   } else {
-    _player playMoveNow "AcinPercMstpSnonWnonDnon";
+    [_player, "AcinPercMstpSnonWnonDnon", 1] call AGM_Core_fnc_doAnimation;
     sleep 7;
   };
 
