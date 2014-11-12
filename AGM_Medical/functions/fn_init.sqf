@@ -20,9 +20,9 @@ _this spawn {
       player setVariable ["acre_sys_core_globalVolume", 1];
     };
 
-    [_this, "AGM_Unconscious", false] call AGM_Interaction_fnc_setCaptivityStatus;
+    [_this, "AGM_Unconscious", false] call AGM_Core_fnc_setCaptivityStatus;
     _this setVariable ["AGM_isDiagnosed", false, true];   // Is the unit diagnosed?
-    _this setVariable ["AGM_canTreat", true, false];    // Can unit treat others?
+    _this setVariable ["AGM_canTreat", true, false];      // Can unit treat others?
     _this setVariable ["AGM_isTreatable", true, true];    // Can unit be treated/diagnosed?
     _this setVariable ["AGM_Blood", 1, true];           // Amount of blood in the body.
     _this setVariable ["AGM_isBleeding", false, true];    // Is the unit losing blood? (Rate is determined by damage.)

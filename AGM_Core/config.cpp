@@ -182,16 +182,20 @@ class CfgFunctions {
     class AGM_Core {
       file = "AGM_Core\functions";
       class addActionEventHandler;
+      class addActionMenuEventHandler;
       class addCameraEventHandler;
       class addCustomEventHandler;
       class addInfoDisplayEventHandler;
       class addMapMarkerCreatedEventHandler;
+      class addInventoryDisplayLoadedEventHandler;
       class addScrollWheelEventHandler;
       class adminKick;
       class binarizeNumber;
       class callCustomEventHandlers;
       class callCustomEventHandlersGlobal;
+      class canGetInPosition;
       class canInteractWith;
+      class canUseWeapon;
       class changeProjectileDirection;
       class checkPBOs;
       class claim;
@@ -207,10 +211,11 @@ class CfgFunctions {
       class execRemoteFnc;
       class filter;
       class getBinocular;
+      class getCaptivityStatus;
       class getConfigCommander;
       class getConfigGunner;
-      class getCopilotTurret;
       class getDoorTurrets;
+      class getInPosition;
       class getMarkerType;
       class getNumberFromMissionSQM;
       class getPitchBankYaw;
@@ -220,9 +225,14 @@ class CfgFunctions {
       class getTargetObject;
       class getTurretCommander;
       class getTurretConfigPath;
+      class getTurretCopilot;
       class getTurretGunner;
       class getTurretIndex;
       class getTurrets;
+      class getTurretsFFV;
+      class getTurretsOther;
+      class getVehicleCargo;
+      class getVehicleCodriver;
       class getWeaponAzimuthAndInclination;
       class getWeaponType;
       class getWindDirection;
@@ -232,6 +242,7 @@ class CfgFunctions {
       class inTransitionAnim;
       class isAutoWind;
       class isEngineer;
+      class isEOD;
       class isInBuilding;
       class isMedic;
       class isPlayer;
@@ -244,19 +255,22 @@ class CfgFunctions {
       class numberToDigitsString;
       class owned;
       class player;
+      class playerSide;
       class progressBar;
       class readBooleanParameterFromModule;
       class readNumericParameterFromModule;
       class removeActionEventHandler;
+      class removeActionMenuEventHandler;
       class removeCameraEventHandler;
       class removeCustomEventHandler;
       class removeInfoDisplayEventHandler;
+      class removeInventoryDisplayLoadedEventHandler;
       class removeMapMarkerCreatedEventHandler;
       class removeScrollWheelEventHandler;
       class revertKeyCodeLocalized;
       class sanitizeString;
+      class setCaptivityStatus;
       class setKeyDefault;
-      class setName;
       class setParameter;
       class setPitchBankYaw;
       class stringToColoredText;
@@ -265,6 +279,16 @@ class CfgFunctions {
       class toBitmask;
       class toHex;
       class toNumber;
+    };
+  };
+  class AGM_Identity {
+    class AGM_Identity {
+      file = "AGM_Core\functions\Identity";
+      class getName;
+      class getNameSide;
+      //class getRank;
+      class setName;
+      class setRank;
     };
   };
   class AGM_Debug {
@@ -304,21 +328,22 @@ class Extended_PostInit_EventHandlers {
   class AGM_Core {
     Init = "call compile preprocessFileLineNumbers '\AGM_Core\init.sqf'";
     disableModuload = true;
+    clientInit = "[call AGM_Core_fnc_player] spawn AGM_Identity_fnc_setName;";
   };
 };
 
+// Identity
 class Extended_Init_EventHandlers {
   class CAManBase {
     class AGM_SetName {
-      init = "if (local (_this select 0)) then {_this call AGM_Core_fnc_setName};";
+      init = "if (local (_this select 0)) then {_this spawn AGM_Identity_fnc_setName};";
     };
   };
 };
-
 class Extended_Local_EventHandlers {
   class CAManBase {
     class AGM_SetName {
-      local = "if (_this select 1) then {_this call AGM_Core_fnc_setName};";
+      local = "if (_this select 1) then {_this spawn AGM_Identity_fnc_setName};";
     };
   };
 };
@@ -359,7 +384,7 @@ class CfgVehicles {
 
   class Module_F;
   class AGM_ModuleCheckPBOs: Module_F {
-    author = "AGM Team";
+    author = "$STR_AGM_Core_AGMTeam";
     category = "AGM";
     displayName = "Check PBOs";
     function = "AGM_Core_fnc_moduleCheckPBOs";
@@ -390,7 +415,7 @@ class CfgVehicles {
   };
 
   class AGM_ModuleLSDVehicles: Module_F {
-    author = "AGM Team";
+    author = "$STR_AGM_Core_AGMTeam";
     category = "AGM";
     displayName = "LSD Vehicles";
     function = "AGM_Core_fnc_moduleLSDVehicles";
@@ -402,9 +427,11 @@ class CfgVehicles {
 
   class Box_NATO_Support_F;
   class AGM_Box_Misc: Box_NATO_Support_F {
-    author = "AGM";
+    author = "$STR_AGM_Core_AGMTeam";
     displayName = "$STR_AGM_Core_MiscItems";
+    transportMaxWeapons = 9001;
     transportMaxMagazines = 9001;
+    transportMaxItems = 9001;
     maximumload = 2000;
 
     class TransportWeapons {};

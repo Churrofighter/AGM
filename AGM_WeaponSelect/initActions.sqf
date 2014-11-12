@@ -7,6 +7,14 @@ if (isNil "AGM_WeaponSelect_actionThrowCondition") then {
 
     if (_muzzle == "") exitWith {true};
 
+    // fix auto muzzle swap after entering or leaving a vehicle
+    if (_this select 0 != missionNamespace getVariable ["AGM_WeaponSelect_CurrentGrenadeMuzzleVehicle", objNull]) then {
+      [_this select 1, _muzzle] call AGM_WeaponSelect_fnc_setNextGrenadeMuzzle;
+      AGM_WeaponSelect_CurrentGrenadeMuzzleVehicle = _this select 0;
+    };
+
+    if !([_this select 1] call AGM_Core_fnc_canUseWeapon) exitWith {false};
+
     _magazines = magazines (_this select 1);
 
     _result = true;
@@ -27,4 +35,4 @@ if (isNil "AGM_WeaponSelect_actionThrowCondition") then {
 };
 
 [_this select 0, "Throw", AGM_WeaponSelect_actionThrowCondition, AGM_WeaponSelect_actionThrow] call AGM_Core_fnc_addActionEventHandler;
-[_this select 0, "CycleThrownItems", {true}, {[_this select 1] call AGM_WeaponSelect_fnc_selectGrenadeAll}] call AGM_Core_fnc_addActionEventHandler;
+[_this select 0, "CycleThrownItems", {[_this select 1] call AGM_Core_fnc_canUseWeapon}, {[_this select 1] call AGM_WeaponSelect_fnc_selectGrenadeAll}] call AGM_Core_fnc_addActionEventHandler;
