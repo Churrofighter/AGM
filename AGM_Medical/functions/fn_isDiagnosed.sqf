@@ -15,6 +15,6 @@ private ["_unit"];
 _unit = _this select 0;
 
 if (AGM_Medical_RequireDiagnosis == 0) exitWith {true};
-if !(_unit getVariable "AGM_Unconscious") exitWith {true};
+if !(_unit getVariable "AGM_isUnconscious") exitWith {true};
 
-(_unit getVariable ["AGM_Diagnosed", true])
+(_unit getVariable ["AGM_isDiagnosed", true])
